@@ -29,7 +29,7 @@ var upperCasedCharacters = [  "A",  "B",  "C",  "D",  "E",  "F",  "G",  "H",  "I
 // Function to prompt user for password options
 function getPasswordOptions() {
   var pwdLength = 11;
-  var specialChar = true;
+  var specialChar = false;
   var numericChar = true;
   var lowercaseChar = true;
   var uppercaseChar = true;
@@ -42,7 +42,7 @@ function getPasswordOptions() {
     // prettier-ignore
     if (pwdLength >= 10 && pwdLength <= 64) {
       console.log("inside number and is a number");
-
+      
       break;
     } 
     
@@ -57,7 +57,25 @@ function getPasswordOptions() {
 getPasswordOptions();
 
 // Function for getting a random element from an array
-function getRandom(arr) {}
+function getRandom(arr) {
+  var arr = [
+    specialCharacters,
+    numericCharacters,
+    lowerCasedCharacters,
+    upperCasedCharacters,
+  ];
+  var randomPick = Math.floor(Math.random(arr) * arr.length);
+
+  console.log(randomPick);
+  // random generator
+  //var rndGenerator = Math.random(arr) * ;
+  // specialCharacters
+  // numericCharacters
+  // lowerCasedCharacters
+  // upperCasedCharacters
+}
+getRandom();
+//getRandom(arr);
 
 // Function to generate password with user input
 function generatePassword() {}
