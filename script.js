@@ -24,49 +24,74 @@ var upperCasedCharacters = [  "A",  "B",  "C",  "D",  "E",  "F",  "G",  "H",  "I
 // include numeric characters
 // lower case chars
 // upper case chars
-
-//var numberArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+var pwdLength = 11;
+var specialChar = true;
+var numericChar = true;
+var lowercaseChar = true;
+var uppercaseChar = true;
 // Function to prompt user for password options
 function getPasswordOptions() {
-  var pwdLength = 11;
-  var specialChar = false;
-  var numericChar = true;
-  var lowercaseChar = true;
-  var uppercaseChar = true;
   //prompt("Enter desired password length: min: 10, max: 64");
 
   while (true) {
     // first check is to ensure that the user input is a number.
-    // I do this by checking for anything equal to or larger than 0. Any other value will not work, thus ensuring correct value is passed.
-
-    // prettier-ignore
     if (pwdLength >= 10 && pwdLength <= 64) {
-      console.log("inside number and is a number");
-      
-      break;
-    } 
-    
-    // prettier-ignore
-    else {
+      //console.log("inside number and is a number");
+      //console.log(specialChar);
+      //break;
+    } else {
       console.log("ensure value is a number between 10 and 64");
     }
-
     break;
   }
 }
-getPasswordOptions();
+//getPasswordOptions();
 
 // Function for getting a random element from an array
-function getRandom(arr) {
-  var arr = [
+// function getRandom(arr)
+function getRandom() {
+  charArray = [
     specialCharacters,
     numericCharacters,
     lowerCasedCharacters,
     upperCasedCharacters,
   ];
-  var randomPick = Math.floor(Math.random(arr) * arr.length);
+  // randomArray generates random number from 0 to 3, it will then use this to select appropriate array.
+  var randomArray = Math.floor(Math.random(charArray) * charArray.length);
+  console.log(randomArray);
 
-  console.log(randomPick);
+  var result = "";
+  //function randomiseChar() {
+  for (var i = 0; i <= charArray[randomArray].length; i++) {
+    var mathRandomResult = Math.floor(
+      Math.random(charArray[randomArray]) * charArray.length
+    );
+    result = charArray[randomArray][mathRandomResult];
+  } //end of for loop
+
+  console.log("Result is: " + result);
+  //}
+  //console.log(randomPick);
+  switch (randomArray) {
+    case 0:
+      randomiseChar(specialCharacters);
+      console.log("Entered case 0" + specialCharacters);
+      break;
+    case 1:
+      randomiseChar(numericCharacters);
+      console.log("Entered case 1");
+      break;
+    case 2:
+      randomiseChar(lowerCasedCharacters);
+      console.log("Entered case 2");
+      break;
+    case 3:
+      randomiseChar(upperCasedCharacters);
+      console.log("Entered case 3 ");
+      break;
+  }
+
+  //console.log(randomPick);
   // random generator
   //var rndGenerator = Math.random(arr) * ;
   // specialCharacters
@@ -74,11 +99,15 @@ function getRandom(arr) {
   // lowerCasedCharacters
   // upperCasedCharacters
 }
-getRandom();
+//getRandom();
 //getRandom(arr);
 
 // Function to generate password with user input
-function generatePassword() {}
+function generatePassword() {
+  getRandom();
+  // get password
+}
+generatePassword();
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
