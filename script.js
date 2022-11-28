@@ -31,13 +31,22 @@ var uppercaseChar = true;
 function getPasswordOptions() {
   //prompt("Enter desired password length: min: 10, max: 64");
   var pwdLength = 11;
+  var specialChar = true;
+  var numericChar = true;
+  var lowercaseChar = true;
+  var uppercaseChar = false;
   //prompt("Please enter the desired length of the password: ");
   while (true) {
     // first check is to ensure that the user input is a number.
     if (pwdLength >= 10 && pwdLength <= 64) {
       //console.log("inside number and is a number");
-      //console.log(specialChar);
-      //break;
+      return [
+        pwdLength,
+        specialChar,
+        numericChar,
+        lowercaseChar,
+        uppercaseChar,
+      ];
     } else {
       console.log("ensure value is a number between 10 and 64");
     }
@@ -45,51 +54,46 @@ function getPasswordOptions() {
   }
 }
 //getPasswordOptions();
-var specialChar = true;
-var numericChar = true;
-var lowercaseChar = false;
-var uppercaseChar = false;
+
 // Function for getting a random element from an array
 // function getRandom(arr)
 function getRandom() {
+  console.log(getPasswordOptions());
+  console.log(getPasswordOptions()[0]);
   charArray = [];
-  if (specialChar === true) {
+  if (getPasswordOptions()[1] === true) {
+    //console.log("specialChar is true: ");
     charArray.push(specialCharacters);
-    console.log("Log of special array: " + charArray);
   }
-  if (numericChar === true) {
+  if (getPasswordOptions()[2] === true) {
+    //console.log("numericChar is true");
     charArray.push(numericCharacters);
-    console.log("Log of numeric array: " + charArray);
   }
-  if (lowercaseChar === true) {
+  if (getPasswordOptions()[3] === true) {
     charArray.push(lowerCasedCharacters);
-    console.log("Log of lowercased array: " + charArray);
   }
-  if (uppercaseChar === true) {
+  if (getPasswordOptions()[4] === true) {
     charArray.push(upperCasedCharacters);
-    console.log("Log of uppercased array: " + charArray);
   }
-  /* charArray = [
-    specialCharacters,
-    numericCharacters,
-    lowerCasedCharacters,
-    upperCasedCharacters,
-  ]; */
-  // below are if statements to reflect correct array based on user input
-
-  // randomArray generates random number from 0 to 3, it will then use this to select appropriate array at random.
-  var randomArray = Math.floor(Math.random(charArray) * charArray.length);
-  console.log(randomArray);
-
+  console.log("After if statements");
+  var arrayResult = "";
   var result = "";
+  console.log("Chararray before loop is: " + charArray);
 
-  for (var i = 0; i <= charArray[randomArray].length; i++) {
-    // random character will be generated with randomChar variable, the array from which this is generated will be random and depends on randomArray variable
-    var randomChar = Math.floor(
-      Math.random(charArray[randomArray]) * charArray[randomArray].length
-    );
+  for (var j = 0; j < getPasswordOptions()[0]; j++) {
+    console.log("Char array is: " + charArray);
+    var randomArray = Math.floor(Math.random(charArray) * charArray.length);
+    console.log("Line 82: " + charArray);
+    console.log("Line 83: " + randomArray);
+    for (var i = 0; i <= charArray[randomArray].length; i++) {
+      // random character will be generated with randomChar variable, the array from which this is generated will be random and depends on randomArray variable
+      var randomChar = Math.floor(
+        Math.random(charArray[randomArray]) * charArray[randomArray].length
+      );
 
-    result = charArray[randomArray][randomChar];
+      arrayResult = charArray[randomArray][randomChar];
+    }
+    result += arrayResult;
   }
   console.log("Result is: " + result);
 
@@ -123,11 +127,11 @@ var uppercaseChar = true;
 */
 
   getPasswordOptions();
-  getRandom();
+  return getRandom();
 
   // get password
 }
-generatePassword();
+console.log("pwd generated is: " + generatePassword());
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
