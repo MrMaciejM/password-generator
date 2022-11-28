@@ -20,19 +20,18 @@ var upperCasedCharacters = [  "A",  "B",  "C",  "D",  "E",  "F",  "G",  "H",  "I
 ];
 
 // how many characters / length (at least 10, no more than 64 - you can use .length to count length of strings)
-// confirm special characters
-// include numeric characters
-// lower case chars
-// upper case chars
-var pwdLength = 11;
-var specialChar = true;
-var numericChar = true;
+//var pwdLength = 11;
+/*
+var specialChar = false;
+var numericChar = false;
 var lowercaseChar = true;
 var uppercaseChar = true;
+*/
 // Function to prompt user for password options
 function getPasswordOptions() {
   //prompt("Enter desired password length: min: 10, max: 64");
-
+  var pwdLength = 11;
+  //prompt("Please enter the desired length of the password: ");
   while (true) {
     // first check is to ensure that the user input is a number.
     if (pwdLength >= 10 && pwdLength <= 64) {
@@ -46,65 +45,86 @@ function getPasswordOptions() {
   }
 }
 //getPasswordOptions();
-
+var specialChar = true;
+var numericChar = true;
+var lowercaseChar = false;
+var uppercaseChar = false;
 // Function for getting a random element from an array
 // function getRandom(arr)
 function getRandom() {
-  charArray = [
+  charArray = [];
+  if (specialChar === true) {
+    charArray.push(specialCharacters);
+    console.log("Log of special array: " + charArray);
+  }
+  if (numericChar === true) {
+    charArray.push(numericCharacters);
+    console.log("Log of numeric array: " + charArray);
+  }
+  if (lowercaseChar === true) {
+    charArray.push(lowerCasedCharacters);
+    console.log("Log of lowercased array: " + charArray);
+  }
+  if (uppercaseChar === true) {
+    charArray.push(upperCasedCharacters);
+    console.log("Log of uppercased array: " + charArray);
+  }
+  /* charArray = [
     specialCharacters,
     numericCharacters,
     lowerCasedCharacters,
     upperCasedCharacters,
-  ];
-  // randomArray generates random number from 0 to 3, it will then use this to select appropriate array.
+  ]; */
+  // below are if statements to reflect correct array based on user input
+
+  // randomArray generates random number from 0 to 3, it will then use this to select appropriate array at random.
   var randomArray = Math.floor(Math.random(charArray) * charArray.length);
   console.log(randomArray);
 
   var result = "";
-  //function randomiseChar() {
-  for (var i = 0; i <= charArray[randomArray].length; i++) {
-    var mathRandomResult = Math.floor(
-      Math.random(charArray[randomArray]) * charArray.length
-    );
-    result = charArray[randomArray][mathRandomResult];
-  } //end of for loop
 
+  for (var i = 0; i <= charArray[randomArray].length; i++) {
+    // random character will be generated with randomChar variable, the array from which this is generated will be random and depends on randomArray variable
+    var randomChar = Math.floor(
+      Math.random(charArray[randomArray]) * charArray[randomArray].length
+    );
+
+    result = charArray[randomArray][randomChar];
+  }
   console.log("Result is: " + result);
-  //}
-  //console.log(randomPick);
+
   switch (randomArray) {
     case 0:
-      randomiseChar(specialCharacters);
-      console.log("Entered case 0" + specialCharacters);
-      break;
+      console.log("Entered case 0 - special: " + result);
+      return result;
+    //break;
     case 1:
-      randomiseChar(numericCharacters);
-      console.log("Entered case 1");
-      break;
+      console.log("Entered case 1 - numeric: " + result);
+      return result;
+    //break;
     case 2:
-      randomiseChar(lowerCasedCharacters);
-      console.log("Entered case 2");
-      break;
+      console.log("Entered case 2 - lower: " + result);
+      return result;
+    //break;
     case 3:
-      randomiseChar(upperCasedCharacters);
-      console.log("Entered case 3 ");
-      break;
+      console.log("Entered case 3 - uppercase: " + result);
+      return result;
+    //break;
   }
-
-  //console.log(randomPick);
-  // random generator
-  //var rndGenerator = Math.random(arr) * ;
-  // specialCharacters
-  // numericCharacters
-  // lowerCasedCharacters
-  // upperCasedCharacters
 }
-//getRandom();
-//getRandom(arr);
 
 // Function to generate password with user input
 function generatePassword() {
+  /*
+var specialChar = true;
+var numericChar = true;
+var lowercaseChar = true;
+var uppercaseChar = true;
+*/
+
+  getPasswordOptions();
   getRandom();
+
   // get password
 }
 generatePassword();
