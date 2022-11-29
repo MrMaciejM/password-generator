@@ -19,13 +19,20 @@ var upperCasedCharacters = [  "A",  "B",  "C",  "D",  "E",  "F",  "G",  "H",  "I
   "S",  "T",  "U",  "V",  "W",  "X",  "Y",  "Z",
 ];
 
-// how many characters / length (at least 10, no more than 64 - you can use .length to count length of strings)
-//var pwdLength = 11;
-
-// Function to prompt user for password options
 function getPasswordOptions() {
-  //prompt("Enter desired password length: min: 10, max: 64");
   var pwdLength = prompt("Please enter the desired password length");
+
+  // checks if entered password length is appropriate
+  parseInt(pwdLength);
+  if (pwdLength < 10 || pwdLength > 64) {
+    alert("Please enter a number! Min: 10, Max: 64 ");
+    return;
+  }
+  // checks if password is not a number, e.g. a string, or if it is an empty string.
+  if (isNaN(pwdLength) === true || pwdLength === "") {
+    alert("Please enter a number! Min: 10, Max: 64 ");
+    return;
+  }
 
   var specialChar = confirm(
     "Press OK to include special characters in the password, i.e. #, $, !, @"
@@ -36,77 +43,73 @@ function getPasswordOptions() {
   var lowercaseChar = confirm("Press OK to include lowercase letters");
 
   var uppercaseChar = confirm("Press OK to include uppercase letters");
-  // first check is to ensure that the user input is a number.
-  if (pwdLength >= 10 && pwdLength <= 64) {
-    console.log("inside IF of getPasswordOptions");
-    // prettier-ignore
-    console.log([pwdLength, specialChar, numericChar, lowercaseChar, uppercaseChar])
 
+  // checks if user cancelled out of all password options
+  if (
+    specialChar === false &&
+    numericChar === false &&
+    lowercaseChar === false &&
+    uppercaseChar === false
+  ) {
+    alert("You must click OK on at least one of the password options");
+    return;
+  }
+
+  // final check to see if the value is between 10 and 64
+  if (pwdLength >= 10 && pwdLength <= 64) {
     // prettier-ignore
     var pwdOptions = [pwdLength, specialChar, numericChar, lowercaseChar, uppercaseChar];
-
     return pwdOptions;
   } else {
     console.log("ensure the value is a number between 10 and 64");
   }
 }
-//getPasswordOptions();
 
-// Function for getting a random element from an array
-// function getRandom(arr)
 function getRandom() {
   var pwdOptions = getPasswordOptions();
-  //console.log(getPasswordOptions());
-  //console.log(getPasswordOptions()[0]);
+
+  // I start off with empty array, because the final array of password options will depend on the user inputs, thus making it dynamic is essential.
   charArray = [];
-  console.log("line 62: " + pwdOptions);
+
+  // the following will check if password options are equal to 'true', and if so, will add them to charArray
   if (pwdOptions[1] === true) {
-    console.log("specialChar (pwdOptions) is working: ");
     charArray.push(specialCharacters);
   }
-  console.log("numericChar is: " + pwdOptions[2]);
   if (pwdOptions[2] === true) {
-    console.log("numericChar is: " + pwdOptions[2]);
     charArray.push(numericCharacters);
   }
   if (pwdOptions[3] === true) {
-    console.log("lowercaseChar is: " + pwdOptions[3]);
     charArray.push(lowerCasedCharacters);
   }
   if (pwdOptions[4] === true) {
-    console.log("uppercaseChar is: " + pwdOptions[4]);
     charArray.push(upperCasedCharacters);
   }
-  console.log("After if statements");
+
+  // these two vars will be used to store and then combine results at the end of loops
   var arrayResult = "";
   var result = "";
-  console.log("Chararray before loop is: " + charArray);
 
-  console.log("is it 11??? " + pwdOptions[0]);
+  // pwdOptions[0] is the password length entered by the user in previous function
   for (var j = 0; j < pwdOptions[0]; j++) {
-    console.log("Char array is: " + charArray);
     var randomArray = Math.floor(Math.random(charArray) * charArray.length);
     for (var i = 0; i <= charArray[randomArray].length; i++) {
       // random character will be generated with randomChar variable, the array from which this is generated will be random and depends on randomArray variable
       var randomChar = Math.floor(
         Math.random(charArray[randomArray]) * charArray[randomArray].length
       );
-
       arrayResult = charArray[randomArray][randomChar];
     }
     result += arrayResult;
   }
-  console.log("Result is: " + result);
+  // I may want to log this to the console for my own reference, therefore I will leave this commented out for the future use.
+  //console.log("Result is: " + result);
   return result;
-
-  // removed unnecessary switch statement
 }
 
 // Function to generate password with user input
 function generatePassword() {
   return [getRandom()];
 }
-//console.log("pwd generated is: " + generatePassword());
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -114,9 +117,7 @@ var generateBtn = document.querySelector("#generate");
 // Write password to the #password input
 function writePassword() {
   var password = generatePassword();
-  //var password = generatePassword();
   var passwordText = document.querySelector("#password");
-
   passwordText.value = password;
 }
 
