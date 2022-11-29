@@ -22,3 +22,9 @@ Below are password criteria that needed to be met:
   - Once prompts are answered then the password should be generated and displayed in an alert or written to the page
 
   ## Links
+
+  Published site URL:
+  https://mrmaciejm.github.io/password-generator/
+
+Repository link:
+https://github.com/MrMaciejM/password-generator
